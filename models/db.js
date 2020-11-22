@@ -9,7 +9,3 @@ mongoose.connect(process.env.MONGODB_URI,
             console.log('Error in MongoDB Connection : ' + JSON.stringify(err, undefined, 2));
         }
     });
-
-require('./ClusterReport');
-require('./Participant');
-require('./StateCoordReport');

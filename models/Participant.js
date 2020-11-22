@@ -78,4 +78,4 @@ ParticipantSchema.path('phoneNumber').validate((val) => {
 
 const Participant = mongoose.model('Participant', ParticipantSchema);
 
-module.exports = mongoose.model('Participant', Participant);
+module.exports = Participant
