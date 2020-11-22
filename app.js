@@ -3,22 +3,20 @@ require('./models/db');
 
 const express = require('express');
 const path = require('path');
-
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 const cors = require('cors');
-app.use(cors());
 
 // models
 const Participant = require('./models/Participant')
 const ClusterReport = require('./models/ClusterReport')
 const StateCoordReport = require('./models/StateCoordReport')
 
-
 var app = express();
 var multer = require('multer');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));

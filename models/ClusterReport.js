@@ -12,7 +12,8 @@ const ClusterReportSchema = new Schema({
         type: String
     },
     officerEmail: {
-        type: String
+        type: String,
+        unique: true
     },
     officerLocation: {
         type: String
