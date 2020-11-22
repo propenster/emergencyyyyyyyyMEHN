@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const ejs = require('ejs')
+const multer = require('multer')
 
 // models
 const Participant = require('./models/Participant')
@@ -20,15 +21,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/tmp/my-uploads')
+        cb(null, path.resolve(__dirname, 'uploads'))
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now())
+        cb(null, file.fieldname + '-' + Date.now() +
+            "." + file.originalname.split('.').pop())
     }
 })
+
+var upload = multer({ storage: storage })
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -42,30 +45,22 @@ app.get('/state-coord-reports', (req, res) => {
     res.render('state-coord-reports')
 });
 
-app.post('/cluster-reports', async (req, res) => {
-    const clusterreport = new ClusterReport({
-        designation: req.body.designation,
-        officerName: req.body.officerName,
-        officerPhone: req.body.officerPhone,
-        officerEmail: req.body.officerEmail,
-        officerLocation: req.body.officerLocation,
-        participantsPhones: req.body.participantsPhones,
-        participantsEmails: req.body.participantsEmails,
-        participantsWhatsApp: req.body.participantsWhatsApp,
-        morningSessionStat: req.body.morningSessionStat,
-        afternoonSessionStat: req.body.afternoonSessionStat,
-        clusterLocationPoint: req.body.clusterLocationPoint,
-        participantsTestimonies: req.body.participantsTestimonies,
-        totalNumberOfParticipants: req.body.totalNumberOfParticipants,
-        numberOfCorperParticipants: req.body.numberOfCorperParticipants,
-        numberOfUndergraduateParticipants: req.body.numberOfUndergraduateParticipants,
-        numberOfPostgraduateParticipants: req.body.numberOfPostgraduateParticipants,
-        numberOfStaffParticipants: req.body.numberOfStaffParticipants,
-        challenges: req.body.challenges,
-        suggestions: req.body.suggestions,
-        decisionsForChrist: req.body.decisionsForChrist,
-        dateOfReport: Date.now()
-    });
+var fileUploads = upload.fields([{ name: "participantsPhones", maxCount: 1 }, { name: "participantsEmails", maxCount: 1 }, { name: "participantsWhatsApp", maxCount: 1 }, { name: "morningSessionStat", maxCount: 1 }, { name: "afternoonSessionStat", maxCount: 1 }, { name: "participantsTestimonies", maxCount: 1 }, { name: "decisionsForChrist", maxCount: 1 }])
+app.post('/cluster-reports', fileUploads, (req, res, next) => {
+    console.log(req.files)
+    console.log(req.body)
+    // await ClusterReport.create({
+    //     ...req.body,
+    //     participantsEmails: req.files['participantsEmails'][0].path,
+    //     participantsPhones: req.files['participantsPhones'][0].path,
+    //     participantsWhatsApp: req.files['participantsWhatsApp'][0].path,
+    //     participantsTestimonies: req.files['participantsTestimonies'][0].path,
+    //     morningSessionStat: req.files['morningSessionStat'][0].path,
+    //     afternoonSessionStat: req.files['afternoonSessionStat'][0].path,
+    //     decisionsForChrist: req.files['decisionsForChrist'][0].path,
+    // })
+
+    res.redirect('/cluster-reports');
 })
 
 app.post('/state-coord-reports', (req, res) => {
