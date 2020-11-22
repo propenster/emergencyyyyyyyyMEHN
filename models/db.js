@@ -10,6 +10,6 @@ mongoose.connect(process.env.MONGODB_URI,
         }
     });
 
-require('./clusterReport.model');
-require('./participant.model');
-require('./stateCoordReport.model');
+require('./ClusterReport');
+require('./Participant');
+require('./StateCoordReport');

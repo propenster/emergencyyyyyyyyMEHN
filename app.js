@@ -19,13 +19,14 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
+
 app.get('/cluster-reports', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'cluster-reports.html'));
 });
+
 app.get('/state-coord-reports', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'state-coord-reports.html'));
 });
-app.use(rtsIndex);
 
 //global error handler
 app.use((err, req, res, next) => {

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-stateCoordReportSchema = new mongoose.Schema({
+const StateCoordReportSchema = new Schema({
     designation: {
         type: String,
     },
@@ -73,15 +73,17 @@ stateCoordReportSchema = new mongoose.Schema({
 });
 
 //Are we doing any custom validation???
-stateCoordReportSchema.path('stateCoordEmail').validate((val) => {
+StateCoordReportSchema.path('stateCoordEmail').validate((val) => {
     emailRegex = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return emailRegex.test(val);
 }, 'Invalid State coord email');
-stateCoordReportSchema.path('stateCoordPhoneNumber').validate((val) => {
+StateCoordReportSchema.path('stateCoordPhoneNumber').validate((val) => {
     phoneNumberRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
     return phoneNumberRegex.test(val);
 }, 'Invalid Phone Number')
 //Any pre-event??
 
 
-mongoose.model('StateCoordReport', stateCoordReportSchema);
+const StateCoordReport = mongoose.model('StateCoordReport', StateCoordReportSchema);
+
+module.exports = StateCoordReport;

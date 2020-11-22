@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-participantSchema = new mongoose.Schema({
-    fullName:{
+const ParticipantSchema = new Schema({
+    fullName: {
         type: String,
         required: 'First Name must not be empty'
 
     },
-    phoneNumber:{
+    phoneNumber: {
         type: String,
         required: 'Phone Number cannot be empty'
     },
-    email:{
+    email: {
         type: String,
         required: 'Email cannot be empty',
         unique: true
@@ -24,11 +24,11 @@ participantSchema = new mongoose.Schema({
         type: String,
         required: 'This field is required'
     },
-    country:{
+    country: {
         type: String,
         required: 'Country is required'
     },
-    state:{
+    state: {
         type: String,
         required: 'State is required'
     },
@@ -44,7 +44,7 @@ participantSchema = new mongoose.Schema({
         type: String,
         required: 'Decision for CHrist is required'
     },
-    testimony:{
+    testimony: {
         type: String
     },
     gender: {
@@ -66,16 +66,16 @@ participantSchema = new mongoose.Schema({
 
 //any custom validation
 //Custom Validation for email
-participantSchema.path('email').validate((val) =>{
+ParticipantSchema.path('email').validate((val) => {
     emailRegex = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return emailRegex.test(val);
 }, 'Invalid email');
-participantSchema.path('phoneNumber').validate((val) => {
+ParticipantSchema.path('phoneNumber').validate((val) => {
     phoneNumberRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
-    return phoneNumberRegex.test({val, whatsappNumber});
+    return phoneNumberRegex.test({ val, whatsappNumber });
 }, 'Invalid phone number');
 //any pre save event
 
-mongoose.model('Participant', participantSchema);
+const Participant = mongoose.model('Participant', ParticipantSchema);
 
-//module.exports = mongoose.model('Participant', Participant);
+module.exports = mongoose.model('Participant', Participant);
