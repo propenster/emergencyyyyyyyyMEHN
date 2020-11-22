@@ -4,7 +4,7 @@
   "description": "",
   "main": "countries.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +17,8 @@
     "fs": "0.0.1-security",
     "mongoose": "^5.10.15",
     "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
