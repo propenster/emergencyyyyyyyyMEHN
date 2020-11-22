@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                align-items: center;
+            }
+
+            #main{
+                margin: 20px 80px;
+                padding: 10px;
+            }
+
+            form{
+                max-width: 100%;
+                min-width: 50%;
+                padding: 5px;
+                font-weight: 500;
+                /* color: purple; */
+            }
+        </style>
+        <script type="text/javascript" src="countries.js"></script>
+        
+        <script type="text/javascript">
+                function showfield(name){
+                    if(name == 'other') {
+                        document.getElementById('div1').innerHTML = 'Other: <input type="text" class="form-control" name="other" />';
+                    }
+                    else {
+                        document.getElementById('div1').innerHTML='';
+                    }	
+                }
+        </script>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <a href="#" class="navbar-brand">Emerge '20</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav">
+                        <a href="/" class="nav-item nav-link active">Home</a>
+                        <a href="/cluster-reports" class="nav-item nav-link">Cluster Reports</a>
+                        <a href="/state-coord-reports" class="nav-item nav-link">State Coordinators' Report</a>
+                        <a href="#" class="nav-item nav-link">Products</a>
+                    </div>
+                    <form class="form-inline ml-auto">
+                        <input type="text" class="form-control mr-sm-2" placeholder="Search">
+                        <button type="submit" class="btn btn-outline-light">Search</button>
+                    </form>
+                </div>
+        </nav>
+            
+        <section id="main">
+
+        <form action="cluster-report" method="POST" enctype="multipart/form-data">
+            <legend>Cluster Reports</legend>
+            <div class="form-group">
+            <label for="designation">Designation</label>
+                <select class="form-control form-control-sm" name="designation" id="designation">
+                    <option>Select</option>
+                    <option value="mr">Mr</option>
+                    <option value="mrs">Mrs</option>
+                    <option value="miss">Miss</option>
+                    <option value="dr">Doctor</option>
+                    <option value="pastor">Pastor</option>
+                    <option value="professor">Professor</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="officerName">Cluster Reporting Officer's name</label>
+                <input class="form-control" name="officerName" id="officerName" required>
+            </div>            
+            <div class="form-group">
+                <label for="officerPhone">Officer's Phone Number</label>
+                <input class="form-control" type="text" name="officerPhone" id="officerPhone" placeholder="+2348100000001 or 08100000001" required>
+            </div>
+            <div class="form-group">
+                <label for="officerEmail">Officer's Email </label>
+                <input class="form-control" type="text" name="officerEmail" id="officerEmail" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="officerLocation">Officer's Location</label>
+                <input class="form-control" type="text" name="officerLocation" id="officerLocation" required>
+            </div>
+            <div class="form-group">
+                <label for="participantsPhones">Phone Numbers of Participants present in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="participantsPhones" id="participantsPhones"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+           <div class="form-group">
+                <label for="participantsEmails">Email addresses of participants present in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="participantsEmails" id="participantsEmails"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <label for="participantsWhatsApp">WhatsApp Contacts of participants present in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="participantsWhatsApp" id="participantsWhatsApp"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <label for="morningSessionStat">Morning Session statistics in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="morningSessionStat" id="morningSessionStat"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <label for="afternoonSessionStat">Afternoon Session statistics in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="afternoonSessionStat" id="afternoonSessionStat"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <label for="clusterLocationPoint">Cluster Location Point</label>
+                <select name="clusterLocationPoint" id="clusterLocationPoint" class="form-control" onchange="showfield(this.options[this.selectedIndex].value)" required> 
+                    <option value="">Please Select Cluster Location Point</option>  
+                    <option value="island">Lagos Island</option>
+                    <option value="ikorodu">Ikorodu</option>
+                    <option value="ikeja">Ikeja</option>
+                    <option value="iyana-ipaja">Iyana-Ipaja</option>
+                    <option value="other">Other Locations, Please Specify</option>
+                </select>
+            </div>
+            <div id="div1"></div><br>
+            <div class="form-group">
+                <label for="participantsTestimonies">Testimonies from participants in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="participantsTestimonies" id="participantsTestimonies"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <label for="totalNumberOfParticipants">Total number of participants present</label>
+                <input class="form-control" type="text" name="totalNumberOfParticipants" id="totalNumberOfParticipants" required>
+                Number of corpers: <input class="form-control form-control-sm" type="text" name="numberOfCorperParticipants" id="numberOfCorperParticipants" required>
+                Number of undergraduates: <input class="form-control form-control-sm" type="text" name="numberOfUndergraduateParticipants" id="numberOfUndergraduateParticipants" required>
+                Number of postgraduates: <input class="form-control form-control-sm" type="text" name="numberOfPostgraduateParticipants" id="numberOfPostgraduateParticipants" required>
+                Number of staff: <input class="form-control form-control-sm" type="text" name="numberOfStaffParticipants" id="numberOfStaffParticipants" required>
+
+            </div>
+            <div class="form-group">
+                <label for="challenges">Challenges Experienced</label>
+                <textarea cols="5" rows="5" name="challenges" id="challenges" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="suggestions">Suggested solutions for subsequent programmes</label>
+                <textarea cols="5" rows="5" name="suggestions" id="suggestions" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="decisionsForChrist">Decisions for Christ in an Excel sheet</label>
+                <input type="file" class="form-control" enctype="multipart/form-data" name="decisionsForChrist" id="decisionsForChrist"
+                accept=".doc,.docx,.xls,application/msword,application/msexcel">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary btn-lg" name="submit" id="submit">
+            </div>
+        </form>
+        </section>
+
+
+
+
+
+
+
+
+        <script language="javascript">
+            populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+            
+        </script>
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
