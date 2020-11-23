@@ -13,9 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.use(express.static(path.resolve((__dirname, 'views'))));
 
-app.post('/register-participants', (req, res) => {
+// app.post('/register-participants', (req, res) => {
 
-});
+// });
 
 
 app.get('/', (req, res) => {
