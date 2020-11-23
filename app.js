@@ -46,9 +46,7 @@ app.get('/state-coord-reports', (req, res) => {
 });
 
 var fileUploads = upload.fields([{ name: "participantsPhones", maxCount: 1 }, { name: "participantsEmails", maxCount: 1 }, { name: "participantsWhatsApp", maxCount: 1 }, { name: "morningSessionStat", maxCount: 1 }, { name: "afternoonSessionStat", maxCount: 1 }, { name: "participantsTestimonies", maxCount: 1 }, { name: "decisionsForChrist", maxCount: 1 }])
-app.post('/cluster-reports', fileUploads, (req, res, next) => {
-    console.log(req.files)
-    console.log(req.body)
+app.post('/cluster-reports', fileUploads, async (req, res, next) => {
     await ClusterReport.create({
         ...req.body,
         participantsEmails: req.files['participantsEmails'][0].path,
@@ -58,15 +56,16 @@ app.post('/cluster-reports', fileUploads, (req, res, next) => {
         morningSessionStat: req.files['morningSessionStat'][0].path,
         afternoonSessionStat: req.files['afternoonSessionStat'][0].path,
         decisionsForChrist: req.files['decisionsForChrist'][0].path,
-    })
+        dateOfReport: Date.now()
+    }).
+        then(console.log("Successful")).
+        catch(error => console.log(error))
 
     res.redirect('/cluster-reports');
 })
 
 var fileUploads = upload.fields([{ name: "stateClusterPoints", maxCount: 1 }, { name: "stateInstitutions", maxCount: 1 }, { name: "stateParticipantsEmails", maxCount: 1 }, { name: "stateParticipantsNamesAndPhones", maxCount: 1 }, { name: "stateMorningSessionStat", maxCount: 1 }, { name: "stateAfternoonSessionStat", maxCount: 1 }])
-app.post('/state-coord-reports', fileUploads, (req, res, next) => {
-    console.log(req.files)
-    console.log(req.body)
+app.post('/state-coord-reports', fileUploads, async (req, res, next) => {
     await StateCoordReport.create({
         ...req.body,
         stateClusterPoints: req.files['stateClusterPoints'][0].path,
@@ -75,12 +74,14 @@ app.post('/state-coord-reports', fileUploads, (req, res, next) => {
         stateParticipantsNamesAndPhones: req.files['stateParticipantsNamesAndPhones'][0].path,
         stateMorningSessionStat: req.files['stateMorningSessionStat'][0].path,
         stateAfternoonSessionStat: req.files['stateAfternoonSessionStat'][0].path,
-         
-    })
+        dateOfStateReport: Date.now()
+    }).
+        then(console.log("successfully created")).
+        catch(error => console.log(error))
     res.redirect('/state-coord-reports');
 })
 
-app.post('/', (req, res, next) => {
+app.post('/', async (req, res, next) => {
     console.log(req.body);
     await Participant.create({
         fullName: req.body.fullName,
@@ -98,22 +99,23 @@ app.post('/', (req, res, next) => {
         participantCategory: req.body.participantCategory,
         challenges: req.body.challenges,
         suggestions: req.body.suggestions,
-        dateRegistered: req.body.dateRegistered,
-
-    })
+        dateRegistered: Date.now()
+    }).
+        then(console.log("It was successful")).
+        catch(error => console.log(error))
     console.log(res);
     res.redirect('/');
 })
 
 
-//global error handler
-app.use((err, req, res, next) => {
-    if (err.name === 'ValidationError') {
-        var valErrors = [];
-        Object.keys(err.errors).forEach(key => valErrors.push(err.errors[key].message));
-        res.status(422).send(valErrors);
-    }
-});
+// //global error handler
+// app.use((err, req, res, next) => {
+//     if (err.name === 'ValidationError') {
+//         var valErrors = [];
+//         Object.keys(err.errors).forEach(key => valErrors.push(err.errors[key].message));
+//         res.status(422).send(valErrors);
+//     }
+// });
 
 //start server
 app.listen(process.env.PORT, () => console.log('Server started at port : ' + process.env.PORT));

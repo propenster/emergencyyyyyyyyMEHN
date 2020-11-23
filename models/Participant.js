@@ -72,9 +72,9 @@ ParticipantSchema.path('email').validate((val) => {
 }, 'Invalid email');
 ParticipantSchema.path('phoneNumber').validate((val) => {
     phoneNumberRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
-    return phoneNumberRegex.test({ val, whatsappNumber });
+    return phoneNumberRegex.test(val);
 }, 'Invalid phone number');
-//any pre save event
+// any pre save event
 
 const Participant = mongoose.model('Participant', ParticipantSchema);
 
