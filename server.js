@@ -9,12 +9,12 @@ var mongoose = require('mongoose');
 const PORT = 8000;
 
 //Data parsing...
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.use(express.static(path.resolve((__dirname, 'views'))));
 
 app.post('/register-participants', (req, res) => {
-    
+
 });
 
 
